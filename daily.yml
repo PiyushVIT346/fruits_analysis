@@ -1,0 +1,35 @@
+name: daily-produce-pipeline-ceda
+
+on:
+  schedule:
+    - cron: "30 12 * * *"   # 12:30 UTC = 18:00 IST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write            # lets the job commit the updated CSVs
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run pipeline (CSV backend)
+        env:
+          BACKEND: csv
+          CEDA_API_KEY: ${{ secrets.CEDA_API_KEY }}
+          MESHAPI_API_KEY: ${{ secrets.MESHAPI_API_KEY }}
+          STATES: "Madhya Pradesh,Maharashtra,Karnataka,Tamil Nadu,Uttar Pradesh,Gujarat"
+        run: python pipeline_ceda.py
+      - name: Commit updated data
+        run: |
+          git config user.name "produce-bot"
+          git config user.email "produce-bot@users.noreply.github.com"
+          git add data/*.csv data/state.json
+          git diff --cached --quiet || git commit -m "data: daily update"
+          git push
