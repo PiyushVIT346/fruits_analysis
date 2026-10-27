@@ -44,6 +44,18 @@
 
 Wholesale fruit prices in India move daily with supply, season and weather, but the raw mandi data is fragmented across thousands of markets and is hard to read at a glance. This project turns it into a clear, automated market view.
 
+---
+
+## 📸 Dashboards
+
+| Streamlit app | Looker Studio report |
+|---|---|
+| ![Streamlit dashboard](dash.png) | ![Looker Studio report](visualStudio_dashboard.png) |
+
+**Streamlit tabs:** 📈 Price trends · ⚖️ Supply vs price · 🚦 Signals · 🗺️ State comparison · 📄 Data (with CSV download). The top of the page always shows the data freshness banner, KPIs and the 🤖 AI market brief, with earlier briefs in an expander.
+
+---
+
 The pipeline:
 
 1. **Collects** wholesale prices and market arrival quantities for 12 fruits across selected states from the **CEDA Agri Market API** (Ashoka University, built on Agmarknet).
@@ -74,7 +86,7 @@ The pipeline:
 ## 🏗️ Architecture
 
 <div align="center">
-  <img src="docs/architecture.svg" alt="Architecture diagram: CEDA API to Python pipeline to CSV files in GitHub, with Claude via Mesh API, GitHub Actions automation, and Streamlit and Looker Studio dashboards" width="100%"/>
+  <img src="architecture.svg" alt="Architecture diagram: CEDA API to Python pipeline to CSV files in GitHub, with Claude via Mesh API, GitHub Actions automation, and Streamlit and Looker Studio dashboards" width="100%"/>
 </div>
 
 <details>
@@ -339,17 +351,7 @@ Create an app at [share.streamlit.io](https://share.streamlit.io) pointing at `d
 
 ---
 
-## 📸 Dashboards
 
-> Add your screenshots to `docs/screenshots/` and they will appear here.
-
-| Streamlit app | Looker Studio report |
-|---|---|
-| ![Streamlit dashboard](docs/screenshots/streamlit.png) | ![Looker Studio report](docs/screenshots/looker.png) |
-
-**Streamlit tabs:** 📈 Price trends · ⚖️ Supply vs price · 🚦 Signals · 🗺️ State comparison · 📄 Data (with CSV download). The top of the page always shows the data freshness banner, KPIs and the 🤖 AI market brief, with earlier briefs in an expander.
-
----
 
 ## ⏱️ Automation (GitHub Actions)
 
